@@ -1,51 +1,96 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
+import Home from "./jsx/Home.jsx"
+import Students from "./jsx/Students.jsx";
+import Lessons from "./jsx/Lessons.jsx";
+import WordCards from "./jsx/WordCards.jsx";
+
 function App() {
-  const  [backendData, setBackendData] = useState([{}])
-  const [nameList,setList] = useState([])
+    const  [studentData, setStudentData] = useState([{}])
+    const  [lessonData, setLessonData] = useState([{}])
+    const  [wordCardsData, setWordCardsData] = useState([{}])
+    
+    const [nameList,setList] = useState([])
+    const [currentPage,setCurrentPage] = useState([]) 
 
-  useEffect(() => {
-    fetch("/api").then(
-        response => response.json()
-    ).then(
-        data=>{
-          setBackendData(data)
-        }
-    )
-  }, []);
 
-  // const data = backendData.users.map((user, i) => {
-  //   <p key={i}>{user}</p>
-  // })
+    useEffect(()=> {
+        setCurrentPage(<Home/>)
+        
+        fetch("/api/students").then(
+            res => res.json()
+        ).then(
+            data => {
+                setStudentData(data);
+            }
+        )
 
-  //const data = backendData.users.map((user, i) => (<p key={i}>{user}</p>))
+        fetch("/api/lessons").then(
+            res => res.json()
+        ).then(
+            data => {
+                setLessonData(data);
+            }
+        )
 
-  const getUsers = () => {
-    if (typeof backendData.users === "undefined"){
-      return <p>undefined</p>
+        fetch("/api/wordcards").then(
+            res => res.json()
+        ).then(
+            data => {
+                setWordCardsData(data);
+            }
+        )
+    }, []) // this empty array is here to run only on the first render of the component
+    
+    // useEffect(()=> {
+    //     setCurrentPage(<Home/>)
+    // }, [])
+    
+    const handleHomeButton = () =>{
+        setCurrentPage(<Home/>)
     }
-    else {
-      return backendData.users.map((user, i) => (<p key={i}>{user}</p>))
+    const handleStudentsButton = () =>{
+        setCurrentPage(<Students backendData={studentData}/>)
     }
-
-  }
-
+    const handleLessonsButton = () =>{
+        setCurrentPage(<Lessons backendData={lessonData}/>)
+    }
+    const handleWordCardsButton = () =>{
+        setCurrentPage(<WordCards backendData={wordCardsData}/>)
+    }
+    
 
   return (
-    <div>
-        <div class="login">
-            <button onClick={getUsers}> Login</button>
-            <button onClick={getUsers}> Registration</button>
-        </div>
+      <div>
+          <div className="top-buttons">
+              <div className="main-buttons">
+                  <button onClick={handleHomeButton}>Home</button>
+                  <button onClick={handleStudentsButton}>Students</button>
+                  <button onClick={handleLessonsButton}>Lessons</button>
+                  <button onClick={handleWordCardsButton}>Wordcards</button>
+              </div>
+
+              <div>
+                  <button>
+                      <img src="images/user-login-305.png" alt="Button Icon" width="30vh"
+                           height="30vh"/>
+                      <span>Log in</span>
+                  </button>
+              </div>
+          </div>
 
 
-        <h1>Word-Cards</h1>
+          
+
+          {currentPage}
 
 
-        <ul>{getUsers()}</ul>
+          {/*<div className="footer">*/}
+          {/*    <p>Jakub Wilczak s21344</p>*/}
+          {/*</div>*/}
 
 
-    </div>
+      </div>
   );
 }
 
