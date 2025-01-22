@@ -9,7 +9,7 @@ function App() {
     const  [studentData, setStudentData] = useState([{}])
     const  [lessonData, setLessonData] = useState([{}])
     const  [wordCardsData, setWordCardsData] = useState([{}])
-    const [nameList,setList] = useState([])
+    // const [nameList,setList] = useState([])
     const [currentPage,setCurrentPage] = useState([]) 
     
     console.log(process.env.REACT_APP_PROXY+"/api/wordcards")

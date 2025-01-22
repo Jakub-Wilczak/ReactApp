@@ -1,20 +1,62 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 function Lessons({backendData}) {
 
+    function handleDelete(lesson) {
+        console.log(lesson)
+        // backendDataTable.filter((e) => {lesson.lesson_id = e.id})
+        // studentLessonsData.filter((e) => {lesson.lesson_id = e.id})
+    }
+
+
+    const basicbackendDataTable = useCallback(() => {
+        return <table className="styled-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>LESSON NAME</th>
+                <th>TEACHER ID</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {(backendData.length === 0) ? (
+                <p>Loading...</p>
+            ) : (
+                backendData.map((lesson, i) => (
+                    <tr>
+                        <td key={i}>{lesson.lesson_id}</td>
+                        <td key={i}>{lesson.lesson_name}</td>
+                        <td key={i}>{lesson.teacher_id}</td>
+                        <td>
+                            <button className="delete" onClick={()=>handleDelete(lesson)}>delete</button>
+                        </td>
+                    </tr>
+                )))}
+            </tbody>
+        </table>
+    }, [backendData])
+    
+    
+    
+
     const  [studentLessonsData, setStudentLessonsData] = useState([{}])
     const  [backendDataTable, setbackendDataTable] = useState([basicbackendDataTable()])
+    
 
     useEffect(()=> {
         fetch(process.env.REACT_APP_PROXY+"/api/studentslessons")
             .then(res => res.json())
-            .then(data => {setStudentLessonsData(data);})
+            
+            .then(data => {
+                setStudentLessonsData(data);
+                basicbackendDataTable()
+            })
+            
             .catch(error => console.error('Error:', error));
 
-        basicbackendDataTable()
         
-        
-    },[])
+    },[basicbackendDataTable])
     
     // function fetchStudentLessons() {
     //     fetch("/api/studentslessons").then(
@@ -96,40 +138,12 @@ function Lessons({backendData}) {
             </tbody>
         </table>)
     }
+
+
     
-    function basicbackendDataTable() {
-        return <table className="styled-table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>LESSON NAME</th>
-                <th>TEACHER ID</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            {(backendData.length === 0) ? (
-                <p>Loading...</p>
-            ) : (
-                backendData.map((lesson, i) => (
-                    <tr>
-                        <td key={i}>{lesson.lesson_id}</td>
-                        <td key={i}>{lesson.lesson_name}</td>
-                        <td key={i}>{lesson.teacher_id}</td>
-                        <td>
-                            <button className="delete" onClick={()=>handleDelete(lesson)}>delete</button>
-                        </td>
-                    </tr>
-                )))}
-            </tbody>
-        </table>
-    }
+
+  
     
-    function handleDelete(lesson) {
-        console.log(lesson)
-        // backendDataTable.filter((e) => {lesson.lesson_id = e.id})
-        // studentLessonsData.filter((e) => {lesson.lesson_id = e.id})
-    }
         
     
 
@@ -144,5 +158,9 @@ function Lessons({backendData}) {
 
         </div>)
 }
+
+
+
+
 
 export default Lessons;
