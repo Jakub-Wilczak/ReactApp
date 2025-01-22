@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 const studentRoutes = require('./routes/studentRoutes');
 const lessonRoutes = require('./routes/lessonRoutes');
@@ -7,6 +8,7 @@ const wordcardRoutes = require('./routes/wordcardRoutes');
 
 
 const app=express();
+app.use(cors());
 dotenv.config({path: `${__dirname}/.env`});
 
 

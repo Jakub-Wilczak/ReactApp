@@ -6,13 +6,10 @@ function Lessons({backendData}) {
     const  [backendDataTable, setbackendDataTable] = useState([basicbackendDataTable()])
 
     useEffect(()=> {
-        fetch("/api/studentslessons").then(
-            res => res.json()
-        ).then(
-            data => {
-                setStudentLessonsData(data);
-            }
-        )
+        fetch(process.env.REACT_APP_PROXY+"/api/studentslessons")
+            .then(res => res.json())
+            .then(data => {setStudentLessonsData(data);})
+            .catch(error => console.error('Error:', error));
 
         basicbackendDataTable()
         

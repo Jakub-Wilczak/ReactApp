@@ -9,37 +9,30 @@ function App() {
     const  [studentData, setStudentData] = useState([{}])
     const  [lessonData, setLessonData] = useState([{}])
     const  [wordCardsData, setWordCardsData] = useState([{}])
-    
     const [nameList,setList] = useState([])
     const [currentPage,setCurrentPage] = useState([]) 
-
+    
+    console.log(process.env.REACT_APP_PROXY+"/api/wordcards")
+    
 
     useEffect(()=> {
         setCurrentPage(<Home/>)
         
-        fetch("/api/students").then(
-            res => res.json()
-        ).then(
-            data => {
-                setStudentData(data);
-            }
-        )
+        fetch(process.env.REACT_APP_PROXY+"/api/students")
+            .then(res => res.json())
+            .then(data => {setStudentData(data);})
+            .catch(error => console.error('Error:', error));
 
-        fetch("/api/lessons").then(
-            res => res.json()
-        ).then(
-            data => {
-                setLessonData(data);
-            }
-        )
+        fetch(process.env.REACT_APP_PROXY+"/api/lessons")
+            .then(res => res.json())
+            .then(data => {setLessonData(data);})
+            .catch(error => console.error('Error:', error));
+        
 
-        fetch("/api/wordcards").then(
-            res => res.json()
-        ).then(
-            data => {
-                setWordCardsData(data);
-            }
-        )
+        fetch(process.env.REACT_APP_PROXY+"/api/wordcards")
+            .then(res => res.json())
+            .then(data => {setWordCardsData(data);})
+            .catch(error => console.error('Error:', error));
     }, []) // this empty array is here to run only on the first render of the component
     
     // useEffect(()=> {

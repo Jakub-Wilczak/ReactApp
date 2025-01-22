@@ -2,7 +2,6 @@
   "type": "module",
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://localhost:3001",
   "private": true,
   "dependencies": {
     "cra-template": "1.2.0",
