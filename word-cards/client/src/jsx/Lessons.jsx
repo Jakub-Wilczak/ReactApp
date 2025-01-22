@@ -13,10 +13,10 @@ function Lessons({backendData}) {
         return <table className="styled-table">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>LESSON NAME</th>
-                <th>TEACHER ID</th>
-                <th>Delete</th>
+                {/*<th></th>*/}
+                {/*<th></th>*/}
+                {/*<th></th>*/}
+                {/*<th></th>*/}
             </tr>
             </thead>
             <tbody>
@@ -25,12 +25,11 @@ function Lessons({backendData}) {
             ) : (
                 backendData.map((lesson, i) => (
                     <tr>
-                        <td key={i}>{lesson.lesson_id}</td>
+                        <td>
+                            <img src="images/potato.webp" alt="Button Icon" width="100vh" height="100vh"/>
+                        </td>
                         <td key={i}>{lesson.lesson_name}</td>
                         <td key={i}>{lesson.teacher_id}</td>
-                        <td>
-                            <button className="delete" onClick={()=>handleDelete(lesson)}>delete</button>
-                        </td>
                     </tr>
                 )))}
             </tbody>
@@ -150,8 +149,8 @@ function Lessons({backendData}) {
     return (
         <div>
             <div className="database-buttons">
-                <button onClick={handleConnectedView} className={"database"}>Connect Students with Lessons</button>
-                <button onClick={handleDetailedView} className={"database"}>Detailed View</button>
+                {/*<button onClick={handleConnectedView} className={"database"}>Connect Students with Lessons</button>*/}
+                {/*<button onClick={handleDetailedView} className={"database"}>Detailed View</button>*/}
             </div>
             {backendDataTable}
             

@@ -55,6 +55,7 @@ VALUES
     ('Tomek', 'Mędrek', 40, 'Male', '1984-5-30'),
     ('Alek', 'Jędrzejczyk', 15, 'Male', '2009-08-10'),
     ('James', 'Ackerman',46, 'Male', '1978-11-27');
+    
 
 
 
